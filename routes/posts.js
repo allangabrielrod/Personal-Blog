@@ -1,5 +1,6 @@
-const express = require("express");
-const router = express.Router();
+const express   = require("express"),
+      router    = express.Router(),
+      _         = require("lodash");
 
 const Post = require("../models/Post");
 
@@ -29,14 +30,20 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
-    Post.findById(req.params.id, (err, foundPost) => {
-        if(!err) {
-            res.render("posts/show", foundPost);
+router.get("/:title", (req, res) => {
+    const reqTitle = req.params.title.toLowerCase();
+
+    Post.find((err, foundPosts) => {
+        if(err) res.redirect("/posts");
+
+        const post = foundPosts.find((post) => post.title.toLowerCase() === reqTitle);
+
+        if (post) {
+            res.render("posts/show", post);
         } else {
             res.redirect("/posts");
         }
-    })
+    });
 });
 
 router.get("/:id/edit", (req, res) => {

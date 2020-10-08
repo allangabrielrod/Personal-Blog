@@ -14,7 +14,7 @@
                                 }).format(post.created) %>
                             </h6>
                             <p class="card-text"><%= post.content.length > 200 ? post.content.substr(0, 200) + "..." : post.content %></p>
-                            <a href="/posts/<%=post._id%>" class="btn btn-outline-danger">Read More</a>
+                            <a href="/posts/<%=post.title%>" class="btn btn-outline-danger">Read More</a>
                         </div>
                     </div>
             <%  }); %> 
